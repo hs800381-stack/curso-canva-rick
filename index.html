@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso Canva Premium | Henrique Silva</title>
+<style>
+:root{--azul:#2563eb;--roxo:#7c3aed;--escuro:#020617}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:url('fundo.jfif') no-repeat center center fixed;background-size:cover;color:#fff}
+.screen{display:none;min-height:100vh}
+.active{display:block}
+.center{display:flex;align-items:center;justify-content:center}
+.card{background:rgba(2,6,23,.92);padding:30px;border-radius:18px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+h1,h2{color:#a78bfa;text-align:center}
+input{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:none}
+button{width:100%;padding:14px;margin-top:10px;border:none;border-radius:12px;background:linear-gradient(90deg,var(--azul),var(--roxo));color:#fff;font-size:15px;cursor:pointer}
+.link{text-align:center;margin-top:12px;color:#93c5fd;cursor:pointer}
+.success{background:#16a34a;padding:12px;border-radius:10px;text-align:center;margin-bottom:10px}
+/* PLATAFORMA */
+.container{display:flex;min-height:100vh;background:url('img.jpg') center/cover}
+nav{width:260px;background:rgba(2,6,23,.95);padding:20px}
+nav h3{color:#a78bfa}
+nav button{background:#312e81;margin-bottom:8px}
+nav button.completed{background:#16a34a}
+main{flex:1;padding:20px;background:rgba(2,6,23,.85)}
+iframe{width:100%;height:360px;border:none;border-radius:12px}
+.quiz label{display:block;margin:6px 0}
+.correct{color:#22c55e}
+.wrong{color:#ef4444}
+/* ADMIN */
+.admin-table{width:100%;border-collapse:collapse;margin-top:20px}
+.admin-table th,.admin-table td{border:1px solid #334155;padding:8px;text-align:center}
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<section id="home" class="screen active center">
+  <div class="card">
+    <h1>Curso Canva Premium</h1>
+    <p style="text-align:center">Plataforma oficial</p>
+    <button onclick="show('register')">Cadastro</button>
+    <button onclick="show('login')">Login do Aluno</button>
+    <button onclick="show('adminLogin')">Administrador</button>
+    <div class="link" onclick="show('termos')">Termos de Uso e LGPD</div>
+  </div>
+</section>
+
+<!-- CADASTRO -->
+<section id="register" class="screen center" style="background:url('borda.png') center/cover">
+  <div class="card">
+    <h2>Cadastro do Aluno</h2>
+    <div id="msgCadastro"></div>
+    <input id="cadNome" placeholder="Nome completo">
+    <input id="cadCpf" placeholder="CPF">
+    <input id="cadSenha" placeholder="Senha">
+    <button onclick="salvarCadastro()">Cadastrar</button>
+    <div class="link" onclick="show('home')">Voltar</div>
+  </div>
+</section>
+
+<!-- LOGIN ALUNO -->
+<section id="login" class="screen center" style="background:url('borda.png') center/cover">
+  <div class="card">
+    <h2>Login do Aluno</h2>
+    <input id="loginCpf" placeholder="CPF">
+    <input id="loginSenha" placeholder="Senha">
+    <button onclick="loginAluno()">Entrar</button>
+    <div class="link" onclick="show('home')">Voltar</div>
+  </div>
+</section>
+
+<!-- LOGIN ADMIN -->
+<section id="adminLogin" class="screen center" style="background:url('borda.png') center/cover">
+  <div class="card">
+    <h2>Login Administrador</h2>
+    <input id="adminUser" placeholder="Usuário">
+    <input id="adminPass" placeholder="Senha">
+    <button onclick="loginAdmin()">Entrar</button>
+    <div class="link" onclick="show('home')">Voltar</div>
+  </div>
+</section>
+
+<!-- PAINEL ADMIN -->
+<section id="adminPanel" class="screen center" style="background:url('admin.avif') center/cover">
+  <div class="card" style="max-width:900px">
+    <h2>Painel do Administrador</h2>
+    <table class="admin-table">
+      <thead><tr><th>Nome</th><th>CPF</th><th>Aprovado</th><th>Certificado</th><th>Ações</th></tr></thead>
+      <tbody id="listaAlunos"></tbody>
+    </table>
+    <button onclick="show('home')">Sair</button>
+  </div>
+</section>
+
+<!-- TERMOS E LGPD -->
+<section id="termos" class="screen center">
+  <div class="card" style="max-width:900px">
+    <h2>Termos de Uso</h2>
+    <p>Ao acessar esta plataforma, o usuário concorda com os presentes Termos de Uso. O curso é de uso pessoal e intransferível. É proibida a reprodução, redistribuição ou compartilhamento dos conteúdos, vídeos, exercícios e materiais sem autorização expressa do responsável legal do curso.</p>
+    <p>O acesso à plataforma é liberado somente após aprovação manual do pagamento pelo administrador.</p>
+    <h2>Política de Privacidade (LGPD)</h2>
+    <p>Em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018), informamos que os dados coletados (nome, CPF, e-mail, telefone e informações acadêmicas) são utilizados exclusivamente para gestão do curso, controle de acesso, emissão de certificados e comunicação com o aluno.</p>
+    <p>Os dados não são compartilhados com terceiros e são armazenados de forma segura no navegador do usuário (localStorage), podendo ser removidos mediante solicitação ao administrador.</p>
+    <p>O aluno pode solicitar a exclusão de seus dados a qualquer momento.</p>
+    <button onclick="show('home')">Voltar</button>
+  </div>
+</section>
+
+<!-- PLATAFORMA DO ALUNO -->
+<section id="platform" class="screen">
+  <div class="container">
+    <nav id="menuModulos"><h3>Módulos</h3></nav>
+    <main>
+      <div id="progresso"></div>
+      <iframe id="video"></iframe>
+      <div id="conteudo"></div>
+      <div id="quiz"></div>
+    </main>
+  </div>
+</section>
+
+<script>
+/* ===== DADOS ===== */
+let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+let alunoAtual = null;
+
+const modulos = [
+ {nome:'Módulo 1 – Introdução', video:'o+que+é+canva', texto:'Introdução ao Canva e objetivos.'},
+ {nome:'Módulo 2 – Conta', video:'como+criar+conta+no+canva', texto:'Criação de conta e interface.'},
+ {nome:'Módulo 3 – Design', video:'como+criar+design+no+canva', texto:'Criação de designs.'},
+ {nome:'Módulo 4 – Tipografia', video:'texto+no+canva', texto:'Textos e fontes.'},
+ {nome:'Módulo 5 – Elementos', video:'elementos+no+canva', texto:'Elementos gráficos.'},
+ {nome:'Módulo 6 – Imagens', video:'editar+imagem+no+canva', texto:'Imagens e vídeos.'},
+ {nome:'Módulo 7 – Avançado', video:'canva+pro', texto:'Recursos avançados.'}
+];
+
+/* ===== NAVEGAÇÃO ===== */
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+
+/* ===== CADASTRO / LOGIN ===== */
+function salvarCadastro(){
+  alunos.push({nome:cadNome.value,cpf:cadCpf.value,senha:cadSenha.value,aprovado:false,certificado:false,concluidos:[]});
+  localStorage.setItem('alunos', JSON.stringify(alunos));
+  msgCadastro.innerHTML='<div class="success">Cadastro realizado com sucesso. Aguarde aprovação do administrador.</div>';
+}
+
+function loginAluno(){
+  alunoAtual = alunos.find(a=>a.cpf===loginCpf.value && a.senha===loginSenha.value);
+  if(!alunoAtual) return alert('Login inválido');
+  if(!alunoAtual.aprovado) return alert('Aguardando aprovação');
+  carregarModulos(); show('platform');
+}
+
+function loginAdmin(){
+  if(adminUser.value==='admin' && adminPass.value==='mki8nju7'){atualizarAdmin();show('adminPanel')} else alert('Credenciais inválidas')
+}
+
+/* ===== ADMIN ===== */
+function atualizarAdmin(){
+  listaAlunos.innerHTML='';
+  alunos.forEach((a,i)=>{
+    listaAlunos.innerHTML+=`<tr><td>${a.nome}</td><td>${a.cpf}</td><td>${a.aprovado?'Sim':'Não'}</td><td>${a.certificado?'Sim':'Não'}</td><td><button onclick="aprovar(${i})">Aprovar</button><button onclick="cert(${i})">Certificado</button></td></tr>`;
+  });
+}
+function aprovar(i){alunos[i].aprovado=true;localStorage.setItem('alunos', JSON.stringify(alunos));atualizarAdmin()}
+function cert(i){alunos[i].certificado=true;localStorage.setItem('alunos', JSON.stringify(alunos));atualizarAdmin()}
+
+/* ===== PLATAFORMA ===== */
+function carregarModulos(){
+  menuModulos.innerHTML='<h3>Módulos</h3>';
+  modulos.forEach((m,i)=>{
+    const b=document.createElement('button');
+    b.innerText=m.nome;
+    if(alunoAtual.concluidos.includes(i)) b.classList.add('completed');
+    if(i>0 && !alunoAtual.concluidos.includes(i-1)) b.disabled=true;
+    b.onclick=()=>abrirModulo(i);
+    menuModulos.appendChild(b);
+  });
+  atualizarProgresso();
+}
+
+function abrirModulo(i){
+  const m=modulos[i];
+  video.src=`https://www.youtube.com/embed?listType=search&list=${m.video}`;
+  conteudo.innerHTML=`<p>${m.texto}</p><button onclick="exercicio(${i})">Exercício</button>`;
+  quiz.innerHTML='';
+}
+
+function exercicio(i){
+  quiz.innerHTML=`<div class='quiz'>
+    <p><strong>${modulos[i].nome}</strong></p>
+    <p>1) Para que serve o Canva?</p>
+    <label><input type='radio' name='q1' value='c'>Criar designs</label>
+    <label><input type='radio' name='q1' value='e'>Editar código</label>
+    <p>2) O que são modelos?</p>
+    <label><input type='radio' name='q2' value='c'>Layouts prontos</label>
+    <label><input type='radio' name='q2' value='e'>Usuários</label>
+    <p>3) Tipografia está relacionada a:</p>
+    <label><input type='radio' name='q3' value='c'>Fontes e textos</label>
+    <label><input type='radio' name='q3' value='e'>Vídeos</label>
+    <p>4) Elementos incluem:</p>
+    <label><input type='radio' name='q4' value='c'>Ícones e formas</label>
+    <label><input type='radio' name='q4' value='e'>Pagamentos</label>
+    <p>5) Um bom design deve ser:</p>
+    <label><input type='radio' name='q5' value='c'>Claro e organizado</label>
+    <label><input type='radio' name='q5' value='e'>Confuso</label>
+    <button onclick="finalizar(${i})">Concluir Exercício</button>
+  </div>`;
+}
+
+function finalizar(i){
+  if(!alunoAtual.concluidos.includes(i)) alunoAtual.concluidos.push(i);
+  localStorage.setItem('alunos', JSON.stringify(alunos));
+  carregarModulos();
+  quiz.innerHTML='<p class="correct">Exercício concluído</p>';
+}
+
+function atualizarProgresso(){
+  const pct=Math.round((alunoAtual.concluidos.length/modulos.length)*100);
+  progresso.innerText=`Progresso do curso: ${pct}%`;
+}
+</script>
+</body>
+</html>
